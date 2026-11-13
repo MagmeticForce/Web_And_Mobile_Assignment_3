@@ -10,7 +10,7 @@ import './App.css'
 
 function App() {
   const [cart, setCart] = useState([]);
-  const[cartDrawerIsOpened, setCartDrawerIsOpened] = useState(true);
+  const[cartDrawerIsOpened, setCartDrawerIsOpened] = useState(false);
 
   const handleAddToCart = (productBeingAddedToCart, quantity = 1) => {
     setCart((previousCartObjects) => {
@@ -59,7 +59,8 @@ function App() {
 
 
   return (
-    <div>
+    <div className='app-container'>
+      <NavBar cartCount={totalCartCount} onOpenCart={() => setCartDrawerIsOpened(true)} />
       <CartDrawer cart={cart} isOpen={cartDrawerIsOpened} onCloseCart={() => setCartDrawerIsOpened(false)} onUpdateQty={handleUpdateQuantity} onRemove={handleRemoveFromCart} />
     </div>
   )
