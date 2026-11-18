@@ -5,10 +5,11 @@ import CartDrawer from './components/cartDrawer';
 import CatalogPage from './pages/CatalogPage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import CheckoutPage from './pages/CheckoutPage';
-import { ALBUMS } from './data/albums';
+import {ALBUMS} from './data/albums';
 import './App.css'
 
 function App() {
+
   const [cart, setCart] = useState([]);
   const[cartDrawerIsOpened, setCartDrawerIsOpened] = useState(false);
 
@@ -30,37 +31,41 @@ function App() {
 
 
   const handleUpdateQuantity = (productid, change) => {
-    setCart((previousCartItems) => {
+    setCart((previousCartItems) =>
         previousCartItems.map(
           (item) => {
               if (item.id === productid) {
                 const newQty = item.quantity + change;
                 return newQty > 0 ? {...item, quantity: newQty} : null;
               }
-            return item;
+              return item;
           }
-        ).filter(Boolean); // gets rid of any false opertion from the map()
-      }
-    ); 
-  }
+        ).filter(Boolean), // gets rid of any false opertion from the map()
+      );
+    };
 
   // Removing items from the cart
   const handleRemoveFromCart = (productId) => {
     setCart(
-      (previousCart) => {previousCart.filter((item) => item.id !== productId.id)}
-    )
+      (previousCart) => previousCart.filter((item) => item.id !== productId)
+    );
   }
 
   const handleClearCart = () => {
     setCart([]);
   }
 
-  const totalCartCount = cart.reduce( (accumulatedTotal, item) => accumulatedTotal + item.quantity, 0);
-
+  const totalCartCount = cart.reduce( (accumulatedTotal, item) => (accumulatedTotal + item.quantity), 0);
 
   return (
     <div className='app-container'>
       <NavBar cartCount={totalCartCount} onOpenCart={() => setCartDrawerIsOpened(true)} />
+      <main className='main-content'>
+        <Routes>
+          <Route path="/" element={<CatalogPage products={ALBUMS} onAddToCart={handleAddToCart} />} />
+          <Route path="/product/:productId" element={<ProductDetailsPage products={ALBUMS} onAddToCart={handleAddToCart} />} />
+        </Routes>
+      </main>
       <CartDrawer cart={cart} isOpen={cartDrawerIsOpened} onCloseCart={() => setCartDrawerIsOpened(false)} onUpdateQty={handleUpdateQuantity} onRemove={handleRemoveFromCart} />
     </div>
   )
