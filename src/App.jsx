@@ -64,6 +64,7 @@ function App() {
         <Routes>
           <Route path="/" element={<CatalogPage products={ALBUMS} onAddToCart={handleAddToCart} />} />
           <Route path="/product/:productId" element={<ProductDetailsPage products={ALBUMS} onAddToCart={handleAddToCart} />} />
+          <Route path="/checkout" element={<CheckoutPage cart={cart} onClearCart={handleClearCart} />} />
         </Routes>
       </main>
       <CartDrawer cart={cart} isOpen={cartDrawerIsOpened} onCloseCart={() => setCartDrawerIsOpened(false)} onUpdateQty={handleUpdateQuantity} onRemove={handleRemoveFromCart} />

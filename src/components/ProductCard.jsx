@@ -20,7 +20,6 @@ function ProductCard( {product, onAddToCart} ) {
               <h3 className='product-title'>
                   <Link className='' to={`/product/${product.id}`}>{product.title}</Link>
               </h3>
-              {console.log(product.price)}
               <p className='product-price'>$ {typeof(product.price) === "number" ? product.price.toFixed(2) : "Contact for price"}</p>
               <button className='btn-secondary btn-block' type='button' onClick={() => {onAddToCart(product)}}>Add to cart</button>
           </div>
